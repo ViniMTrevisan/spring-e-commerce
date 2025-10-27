@@ -24,7 +24,7 @@ public class JwtService {
 
     private Claims getClaims(String token) {
         return Jwts.parser()
-                .verifyWith(jwtConfig.getSecret())
+                .verifyWith(jwtConfig.getSecretKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -42,13 +42,13 @@ public class JwtService {
                 .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
                 .build();
 
-        return new Jwt(claims, jwtConfig.getSecret());
+        return new Jwt(claims, jwtConfig.getSecretKey());
     }
 
     public Jwt parseToken(String token) {
         try {
             var claims = getClaims(token);
-            return new Jwt(claims, jwtConfig.getSecret());
+            return new Jwt(claims, jwtConfig.getSecretKey());
         } catch (JwtException e) {
             return null;
         }

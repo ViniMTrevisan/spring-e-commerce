@@ -19,6 +19,7 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping
     //method: GET (retrieving Data), POST (creating data), PUT (updating data),
@@ -28,7 +29,6 @@ public class UserController {
     ) {
         return userService.findAll(sort);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id){
